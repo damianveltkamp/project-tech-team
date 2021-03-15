@@ -26,7 +26,7 @@ Boilerplate for node projects using:
 Clone repository into local working directory
 
 ```
-git clone https://github.com/damianveltkamp/node-boilerplate.git
+git clone https://github.com/damianveltkamp/project-tech-team.git
 ```
 
 Install packages
