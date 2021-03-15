@@ -68,4 +68,4 @@ npm run deploy:prod
 ## License
 
 Find the license for the repository here
-[License](https://github.com/damianveltkamp/node-boilerplate/blob/main/LICENSE)
+[License](https://github.com/damianveltkamp/project-tech-team/blob/main/LICENSE)
