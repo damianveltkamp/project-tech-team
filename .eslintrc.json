@@ -15,7 +15,10 @@
         "map": [
           ["@root", "."],
           ["@controllers", "./controllers"],
-          ["@helpers", "./helpers"]
+          ["@helpers", "./helpers"],
+          ["@components", "./source/components"],
+          ["@javascript", "./source/javascript"],
+          ["@sass", "./source/sass"]
         ],
         "extensions": [".ts", ".js", ".jsx", ".json"]
       }
@@ -25,6 +28,7 @@
     "comma-dangle": 0,
     "prefer-const": 1,
     "no-const-assign": 1,
-    "implicit-arrow-linebreak": "below"
+    "implicit-arrow-linebreak": ["error", "below"],
+    "no-console": 0
   }
 }
