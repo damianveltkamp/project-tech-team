@@ -1,0 +1,59 @@
+{
+  "name": "node-boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate for node projects",
+  "main": "index.js",
+  "scripts": {
+    "dev": "run-p watch:server build:dev",
+    "deploy:prod": "node -r esm -r module-alias/register server.js",
+    "watch:server": "nodemon --ext html,js -r esm -r module-alias/register server.js",
+    "build:dev": "webpack --config webpack.dev.js",
+    "build:prod": "webpack --config webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damianveltkamp/node-boilerplate.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/damianveltkamp/node-boilerplate/issues"
+  },
+  "homepage": "https://github.com/damianveltkamp/node-boilerplate#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "module-alias": "^2.2.2",
+    "nunjucks": "^3.2.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "autoprefixer": "^10.2.5",
+    "babel-loader": "^8.2.2",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-minimizer-webpack-plugin": "^1.2.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.22.1",
+    "file-loader": "^6.2.0",
+    "node-sass": "^5.0.0",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.8",
+    "postcss-loader": "^5.1.0",
+    "sass-loader": "^11.0.1",
+    "webpack": "^5.24.4",
+    "webpack-cli": "^4.5.0",
+    "webpack-merge": "^5.7.3"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@components": "./source/components",
+    "@controllers": "./controllers",
+    "@helpers": "./helpers"
+  }
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/build/css/{{cssBundle}}" />
+  </head>
+  <body>
+    {% include 'header.html' %}
+
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+
+    {% include 'footer.html' %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="/build/js/{{jsBundle}}" async defer type="module"></script>
+  </body>
+</html>
