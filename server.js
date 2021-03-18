@@ -27,6 +27,4 @@ app
   .use(express.static('static'))
   .set('view engine', 'html')
   .use('/', router)
-  .listen(port, () => {
-    environment === 'development' && console.log(`Connected to port ${port}`);
-  });
+  .listen(port);

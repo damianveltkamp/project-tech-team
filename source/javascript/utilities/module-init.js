@@ -3,7 +3,12 @@ async function moduleInit(moduleName, functionName, callBack) {
 
   if (element) {
     const module = await callBack();
-    functionName ? module[functionName]() : module.default();
+
+    if (functionName) {
+      module[functionName]();
+    } else {
+      module.default();
+    }
   }
 }
 

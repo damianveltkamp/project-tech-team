@@ -26,7 +26,7 @@ Boilerplate for node projects using:
 Clone repository into local working directory
 
 ```
-git clone https://github.com/damianveltkamp/project-tech-team.git
+git clone https://github.com/damianveltkamp/node-boilerplate.git
 ```
 
 Install packages
@@ -68,4 +68,4 @@ npm run deploy:prod
 ## License
 
 Find the license for the repository here
-[License](https://github.com/damianveltkamp/project-tech-team/blob/main/LICENSE)
+[License](https://github.com/damianveltkamp/node-boilerplate/blob/main/LICENSE)

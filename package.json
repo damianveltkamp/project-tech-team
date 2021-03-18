@@ -7,8 +7,8 @@
     "dev": "run-p watch:server build:dev",
     "deploy:prod": "node -r esm -r module-alias/register server.js",
     "watch:server": "nodemon --ext html,js -r esm -r module-alias/register server.js",
-    "build:dev": "webpack --config webpack/webpack.dev.js",
-    "build:prod": "webpack --config webpack/webpack.prod.js"
+    "build:dev": "webpack --config webpack.dev.js",
+    "build:prod": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -36,8 +36,8 @@
     "browser-sync-webpack-plugin": "^2.3.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-minimizer-webpack-plugin": "^1.2.0",
-    "eslint": "^7.22.0",
     "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.22.1",
     "file-loader": "^6.2.0",
@@ -46,7 +46,6 @@
     "npm-run-all": "^4.1.5",
     "postcss": "^8.2.8",
     "postcss-loader": "^5.1.0",
-    "prettier": "^2.2.1",
     "sass-loader": "^11.0.1",
     "webpack": "^5.24.4",
     "webpack-cli": "^4.5.0",
