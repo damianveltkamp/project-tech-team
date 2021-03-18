@@ -1,0 +1,24 @@
+.accountList {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0em;
+  justify-content: center;
+  margin-top: 0em;
+
+  margin: 1em;
+  background-color: lightgray;
+  border-radius: 0.4em;
+
+  img {
+    max-width: 9em;
+    border-top-left-radius: 0.4em;
+    border-top-right-radius: 0.4em;
+  }
+
+  p {
+    margin: 0em;
+    text-align: center;
+    background-color: lightgray;
+  }
+}

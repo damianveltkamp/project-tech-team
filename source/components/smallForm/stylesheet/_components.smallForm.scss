@@ -1,0 +1,22 @@
+section:first-of-type {
+  display: flex;
+  margin: 1em;
+
+  h2 {
+    margin: 0;
+    margin-right: 2em;
+  }
+
+  form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+
+    input {
+      display: flex;
+      //   margin: 1em auto;
+    }
+  }
+}
