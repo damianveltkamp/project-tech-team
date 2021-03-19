@@ -1,3 +1,5 @@
+import userSettingsController from './database/users.settings.controller';
+
 export function home(req, res) {
   const data = {
     layout: 'layout.html',
@@ -5,6 +7,66 @@ export function home(req, res) {
   };
 
   res.render('pages/home.html', data);
+}
+
+export async function overview(req, res) {
+  // TODO dynamicaly fill companies array
+  const data = {
+    layout: 'layout.html',
+    title: 'Overview page',
+    companies: [
+      {
+        symbol: 'GME',
+        industry: 'Games',
+      },
+      {
+        symbol: 'TSL',
+        industry: 'Technologie',
+      },
+      {
+        symbol: 'GME2',
+        industry: 'Games',
+      },
+      {
+        symbol: 'GME3',
+        industry: 'Games',
+      },
+      {
+        symbol: 'GME4',
+        industry: 'Games',
+      },
+    ],
+  };
+
+  const userProfile = await userSettingsController.getUserProfile(
+    req.session.userID,
+  );
+
+  data.companies = data.companies.filter((company) => {
+    if (
+      userProfile.likedCompanies.includes(company.symbol) === false &&
+      userProfile.dislikedCompanies.includes(company.symbol) === false
+    ) {
+      return company;
+    }
+
+    return false;
+  });
+
+  res.render('pages/overview.html', data);
+}
+
+export async function overviewPost(req, res) {
+  if (req.body.like === 'false') {
+    userSettingsController.setDislikedCompany(
+      req.session.userID,
+      req.body.symbol,
+    );
+  } else {
+    userSettingsController.setLikedCompany(req.session.userID, req.body.symbol);
+  }
+
+  res.redirect('/overview');
 }
 
 export function notFound(req, res) {

@@ -64,6 +64,7 @@
     "@root": ".",
     "@components": "./source/components",
     "@controllers": "./controllers",
-    "@helpers": "./helpers"
+    "@helpers": "./helpers",
+    "@models": "./models"
   }
 }

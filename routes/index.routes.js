@@ -3,10 +3,24 @@ import * as base from '@controllers/default.controller';
 import * as account from '@controllers/account.controller';
 import { setCookie } from '@helpers/default.helpers';
 import userController from '@controllers/database/users.controller';
+import userModel from '@models/user.model';
 
 const router = express.Router();
 
-router.get('/', base.home);
+router.get('/', (req, res) => {
+  if (req.session.userID !== undefined) {
+    return res.redirect('/overview');
+  }
+
+  return base.home(req, res);
+});
+router.get('/overview', (req, res) => {
+  if (req.session.userID === undefined) {
+    return res.redirect('/');
+  }
+  return base.overview(req, res);
+});
+router.post('/overview', base.overviewPost);
 router.get('/verify-account', account.verify);
 router.get('/register', account.register);
 router.post('/register', account.registerUser, (req, res) =>
@@ -31,7 +45,9 @@ router.post('/login', account.loginUser, async (req, res) => {
 });
 router.post('/resendVerificationEmail', account.resendVerificationEmail);
 router.get('/onboarding', account.onboardingFlow);
-router.post('/onboarding', account.postOnboardingFlow, base.home);
+router.post('/onboarding', account.postOnboardingFlow, (req, res) =>
+  res.redirect('/'),
+);
 router.get('/user-settings', account.userSettings);
 router.post('/user-settings', account.updateUserSettings, account.userSettings);
 router.get('*', base.notFound);
