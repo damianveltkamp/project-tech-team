@@ -3,7 +3,6 @@ import * as base from '@controllers/default.controller';
 import * as account from '@controllers/account.controller';
 import { setCookie } from '@helpers/default.helpers';
 import userController from '@controllers/database/users.controller';
-import userModel from '@models/user.model';
 
 const router = express.Router();
 
