@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 
-export async function resultsGet(req, res){
+export async function yourMatchesGet(req, res){
     const data = {
         layout: 'layout.html',
         title: 'result page',
@@ -10,31 +10,30 @@ export async function resultsGet(req, res){
 
     data.accounts = accounts;
     
-    res.render('pages/results.html', data)
+    res.render('pages/yourMatches.html', data)
 }
 
-export async function resultsPost(req, res){
+export async function yourMatchesPost(req, res){
     const db = await connectDB();
     const accounts = await db.collection('Accounts').find({}).toArray();
-    const searched = (req.body.subject);
+    const searched = (req.body.searchedSubject);
     const filteredSubject = accounts.filter(function (Accounts) {
-        return Accounts.subject.includes(req.body.subject);
+        return Accounts.matchedSubject.includes(req.body.searchedSubject);
     });
     const data = {
         layout: 'layout.html',
         title: 'result page',
-        resultsQuantity: filteredSubject.length,
-        searchSubject: searched,
+        matchQuantity: filteredSubject.length,
+        searchedThisSubject: searched,
         account: filteredSubject
     }
        
     // toevoegen van gezochte onderwerp naar database 
     const searchHistory = db.collection('searchHistory');
-    searchHistory.insertOne({ subject: req.body.subject });
+    searchHistory.insertOne({ matchedSubject: req.body.searchedSubject });
       
-    res.render('pages/results.html', data);
+    res.render('pages/yourMatches.html', data);
 };
-
 
 async function connectDB() {
     const uri = process.env.DB_URI;

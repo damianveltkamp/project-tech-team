@@ -1,11 +1,10 @@
-{% macro accountList(data) %}
+{% macro accountList(data) %} 
 
-  {% for searchResult in data.searchResults %}
-    <section class="accountList">
-      <img src="{{ searchResult.image }}" alt="" />
-      <p>{{ searchResult.name }}</p>
-    </section>
-  {% endfor %}
-  
+{% for searchedMatch in data.searchMatches %}
+  <section class="accountList">
+    <img src="{{ searchedMatch.image }}" alt="" />
+    <p>{{ searchedMatch.name }}</p>
+  </section>
+{% endfor %} 
+
 {% endmacro %}
-

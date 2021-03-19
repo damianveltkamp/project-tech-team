@@ -1,10 +1,4 @@
-{% extends  layout %}
-{% block  content %}
-  <h1 js-hook-module-test>{{ title }}</h1>
+{% extends layout %} {% block content %}
+<h1 js-hook-module-test>{{ title }}</h1>
 
-  <form action="/results" method="POST">
-    <label for="subject">Search something</label>
-    <input type="text" name="subject">
-    <button>search</button>
-  </form>
 {% endblock %}

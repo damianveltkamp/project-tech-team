@@ -1,0 +1,25 @@
+{% extends layout %} 
+{% block content %}
+
+<section>
+  <h2>Results</h2>
+  <form action="/yourMatches" method="POST">
+    <input
+      type="text"
+      name="searchedSubject"
+      placeholder="Try something else"
+    />
+    <button>search</button>
+  </form>
+</section>
+
+<h3>{{ matchQuantity }} results for {{ searchedThisSubject }}</h3>
+
+{% from "accountList.html" import accountList %} 
+  {{accountList
+    ({ searchMatches:account }) 
+  }} 
+
+{% endblock %}
+
+

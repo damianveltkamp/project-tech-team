@@ -7,9 +7,7 @@ const router = express.Router();
 
 router.get('/', base.home);
 
-router.get('/search', database.resultsPost);
-
-router.get('/results', database.resultsGet);
-router.post('/results', database.resultsPost);
+router.get('/yourMatches', database.yourMatchesGet);
+router.post('/yourMatches', database.yourMatchesPost);
 
 export default router;
