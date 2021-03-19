@@ -1,11 +1,10 @@
-const webpack = require('webpack');
+/* eslint-disable import/no-extraneous-dependencies */
 const TerserPlugin = require('terser-webpack-plugin');
-const defaultWebpackConfig = require('./webpack.config');
 const { merge } = require('webpack-merge');
 const path = require('path');
-const autoprefixer = require('autoprefixer');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const defaultWebpackConfig = require('./webpack.config');
 
 module.exports = merge(defaultWebpackConfig, {
   mode: 'production',

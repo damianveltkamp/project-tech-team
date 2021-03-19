@@ -6,3 +6,7 @@ export function home(req, res) {
 
   res.render('pages/home.html', data);
 }
+
+export function notFound(req, res) {
+  res.send('page not found');
+}
