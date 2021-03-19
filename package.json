@@ -22,12 +22,19 @@
   },
   "homepage": "https://github.com/damianveltkamp/node-boilerplate#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "compression": "^1.7.4",
+    "connect-redis": "^5.1.0",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "module-alias": "^2.2.2",
-    "nunjucks": "^3.2.3"
+    "mongodb": "^3.6.4",
+    "mongoose": "^5.11.15",
+    "nodemailer": "^6.5.0",
+    "nunjucks": "^3.2.3",
+    "redis": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
@@ -40,6 +47,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
     "file-loader": "^6.2.0",
     "node-sass": "^5.0.0",
     "nodemon": "^2.0.7",
