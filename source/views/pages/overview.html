@@ -1,0 +1,21 @@
+{% extends  layout %}
+{% block  content %}
+  <h1>{{ title }}</h1>
+
+  {% for company in companies %}
+    <secion>
+      <h2>{{ company.symbol }}</h2>
+      <p>{{ company.industry }}</p>
+      <form action="/overview" method="post">
+        <input name="like" type="hidden" value="true">
+        <input name="symbol" type="hidden" value="{{ company.symbol }}">
+        <button>Like</button>
+      </form>
+      <form action="/overview" method="post">
+        <input name="like" type="hidden" value="false">
+        <input name="symbol" type="hidden" value="{{ company.symbol }}">
+        <button>Dislike</button>
+      </form>
+    </secion>
+  {% endfor %}
+{% endblock %}

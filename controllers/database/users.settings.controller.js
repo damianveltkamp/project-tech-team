@@ -1,24 +1,36 @@
-import mongoose from 'mongoose';
-import userSettingsModel from '../../models/user.settings.model';
-import userModel from '../../models/user.model';
+import userSettingsModel from '@models/user.settings.model';
+import userModel from '@models/user.model';
+
+function setHasSetupAccount(id) {
+  userModel.findOneAndUpdate({ _id: id }, { hasSetupAccount: true });
+}
 
 export default {
   createNewUserProfile: (userID, { name }) => {
-    //TODO check if a user profile already exists for this is
     const newUserSettingsProfile = new userSettingsModel({
-      userID: userID,
-      name: name,
+      userID,
+      name,
     });
 
     newUserSettingsProfile.save((error) => {
-      error
-        ? console.log(`Something went wrong: ${error}`)
-        : setHasSetupAccount(userID);
+      if (!error) {
+        setHasSetupAccount(userID);
+      }
     });
   },
+  setLikedCompany: (userID, symbol) => {
+    userSettingsModel
+      .findOneAndUpdate({ userID }, { $push: { likedCompanies: symbol } })
+      .then((profile) => profile);
+  },
+  setDislikedCompany: (userID, symbol) => {
+    userSettingsModel
+      .findOneAndUpdate({ userID }, { $push: { dislikedCompanies: symbol } })
+      .then((profile) => profile);
+  },
+  getUserProfile: (userID) =>
+    userSettingsModel
+      .findOne({ userID })
+      .lean()
+      .then((profile) => profile),
 };
-
-function setHasSetupAccount(id) {
-  console.log(id);
-  userModel.findOneAndUpdate({ _id: id }, { hasSetupAccount: true });
-}
