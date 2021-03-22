@@ -41,3 +41,7 @@ export function setCookie({ session, loggedInUser }) {
   session.userID = loggedInUser;
   return session;
 }
+
+export function setCookieExpire({ session }) {
+  session.cookie.expires = new Date(Date.now() + 3600000 / 2);
+}
