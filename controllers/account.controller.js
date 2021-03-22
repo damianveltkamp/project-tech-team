@@ -197,7 +197,6 @@ export function logout(req, res) {
     console.log('destroyed session');
   });
 
-  console.log(req.session);
   res.redirect('/');
 }
 
