@@ -13,7 +13,6 @@ export default {
       userID,
       name,
     });
-    console.log(userID);
     newUserSettingsProfile.save((error) => {
       if (!error) {
         setHasSetupAccount(userID);
@@ -35,4 +34,9 @@ export default {
       .findOne({ userID })
       .lean()
       .then((profile) => profile),
+  removeMatch(userID, symbol) {
+    userSettingsModel
+      .findOneAndUpdate({ userID }, { $pull: { likedCompanies: symbol } })
+      .then((profile) => profile);
+  },
 };

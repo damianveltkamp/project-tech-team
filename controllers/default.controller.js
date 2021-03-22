@@ -69,6 +69,30 @@ export async function overviewPost(req, res) {
   res.redirect('/overview');
 }
 
+export async function matchesOverview(req, res) {
+  const profile = await userSettingsController.getUserProfile(
+    req.session.userID,
+  );
+
+  // TODO fetch company information and put info into data.matches
+  const companies = profile.likedCompanies.map((company) => {
+    return { symbol: company };
+  });
+
+  const data = {
+    layout: 'layout.html',
+    title: 'Matches',
+    matches: companies,
+  };
+
+  res.render('pages/matches-overview.html', data);
+}
+
+export async function matchesOverviewPost(req, res) {
+  userSettingsController.removeMatch(req.session.userID, req.body.symbol);
+  res.redirect('/matches-overview');
+}
+
 export function notFound(req, res) {
   res.send('page not found');
 }

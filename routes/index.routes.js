@@ -20,6 +20,8 @@ router.get('/overview', (req, res) => {
   return base.overview(req, res);
 });
 router.post('/overview', base.overviewPost);
+router.get('/matches-overview', base.matchesOverview);
+router.post('/matches-overview', base.matchesOverviewPost);
 router.get('/verify-account', account.verify);
 router.get('/register', account.register);
 router.post('/register', account.registerUser, (req, res) =>
