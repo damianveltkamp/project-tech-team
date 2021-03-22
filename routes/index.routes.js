@@ -50,7 +50,13 @@ router.get('/onboarding', account.onboardingFlow);
 router.post('/onboarding', account.postOnboardingFlow, (req, res) =>
   res.redirect('/'),
 );
-router.get('/user-settings', account.userSettings);
+router.get('/user-settings', (req, res) => {
+  if (req.session.userID !== undefined) {
+    return account.userSettings(req, res);
+  }
+
+  return res.redirect('/');
+});
 router.post('/user-settings', account.updateUserSettings, account.userSettings);
 router.get('*', base.notFound);
 
