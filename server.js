@@ -27,7 +27,7 @@ mongoose.connect(dbUrl, {
   useNewUrlParser: true,
 });
 
-nunjucks
+const nunjucksEnv = nunjucks
   .configure(['source/views', ...defaultHelpers.getComponentPaths()], {
     autoescape: true,
     express: app,
@@ -48,6 +48,15 @@ app
       store: new RedisStore({ client: redisClient }),
     }),
   )
+  .use((req, res, next) => {
+    if (req.session.userID) {
+      nunjucksEnv.addGlobal('loggedIn', req.session.userID);
+      return next();
+    }
+
+    nunjucksEnv.addGlobal('loggedIn', false);
+    return next();
+  })
   .use(express.static('static'))
   .set('view engine', 'html')
   .use('/', router)
