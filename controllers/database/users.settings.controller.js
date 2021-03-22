@@ -2,7 +2,9 @@ import userSettingsModel from '@models/user.settings.model';
 import userModel from '@models/user.model';
 
 function setHasSetupAccount(id) {
-  userModel.findOneAndUpdate({ _id: id }, { hasSetupAccount: true });
+  userModel
+    .findOneAndUpdate({ _id: id }, { $set: { hasSetupAccount: true } })
+    .then((user) => user);
 }
 
 export default {
@@ -11,7 +13,7 @@ export default {
       userID,
       name,
     });
-
+    console.log(userID);
     newUserSettingsProfile.save((error) => {
       if (!error) {
         setHasSetupAccount(userID);
