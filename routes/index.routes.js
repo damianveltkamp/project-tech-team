@@ -42,6 +42,7 @@ router.post('/login', account.loginUser, async (req, res) => {
     ? res.redirect('/onboarding')
     : res.redirect('/');
 });
+router.post('/logout', account.logout);
 router.post('/resendVerificationEmail', account.resendVerificationEmail);
 router.get('/onboarding', account.onboardingFlow);
 router.post('/onboarding', account.postOnboardingFlow, (req, res) =>
