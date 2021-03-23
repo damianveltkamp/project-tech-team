@@ -48,11 +48,13 @@ export function setCookieExpire({ session }) {
   session.cookie.expires = new Date(Date.now() + 5000);
 }
 
-export function cookieExpireHandler({ session }, res) {
-  setInterval(() => {
+export function cookieExpireHandler({ session }) {
+  const timer = setInterval(() => {
     const expired = moment().isAfter(session.cookie._expires);
     if (expired === true) {
-      return res.redirect('/');
+      // TODO somehow make it possible to redirect to home route from here
+      clearInterval(timer);
     }
+    console.log('yooo');
   }, 1000);
 }
