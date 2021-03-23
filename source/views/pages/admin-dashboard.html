@@ -1,4 +1,10 @@
 {% extends  layout %}
 {% block  content %}
-  <h1>{{ title }}</h1>
+  <div class="o-container">
+    <h1>{{ title }}</h1>
+    {% for room in rooms %}
+      <button data-id="{{room}}" js-hook-module-chat>Open chat</button>
+      {{room}}
+    {% endfor %}
+  </div>
 {% endblock %}

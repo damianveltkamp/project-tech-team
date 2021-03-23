@@ -11,8 +11,17 @@
     <main>
       {% block content %}
       {% endblock %}
-      <section class="c-support">
-        <button js-hook-module-support></button>
+      <section class=".c-support">
+        <button data-id="{{userID}}" js-hook-module-support>Support</button>
+      </section>
+      <section class="c-support-chat hide" js-hook-support-chat>
+        <div class="support-chat__window">
+        </div>
+        <form js-hook-module-chat-form>
+          <input name="roomID" type="hidden" value="">
+          <input name="message" type="text">
+          <button>Send</button>
+        </form>
       </section>
     </main>
 

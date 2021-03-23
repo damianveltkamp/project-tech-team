@@ -27,10 +27,10 @@ const io = new socketIO(server);
 io.on('connection', (socket) => {
   console.log('User connected to server');
 
-  socket.on('joinRoom', () => {
+  socket.on('joinRoom', (userID) => {
     console.log('socket wanting to join room');
-    socket.join('kamer');
-    console.log(io.sockets.adapter.rooms);
+    // TODO dynamic room based on userid
+    socket.join(`custom:${userID}`);
   });
 });
 
@@ -64,14 +64,13 @@ app
     }),
   )
   .use((req, res, next) => {
-    console.log('heeeeeeye');
     defaultHelpers.setCookieExpire(req);
     if (req.session.userID) {
-      nunjucksEnv.addGlobal('loggedIn', req.session.userID);
+      nunjucksEnv.addGlobal('userID', req.session.userID);
       return next();
     }
 
-    nunjucksEnv.addGlobal('loggedIn', false);
+    nunjucksEnv.addGlobal('userID', false);
     return next();
   })
   .set('view engine', 'html')

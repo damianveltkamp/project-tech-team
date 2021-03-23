@@ -5,4 +5,6 @@ import * as support from '@components/support/javascript/support';
 
 moduleInit('[js-hook-module-form-validation]', '', () => form);
 moduleInit('[js-hook-module-overview]', '', () => overview);
-moduleInit('[js-hook-module-support]', '', () => support);
+moduleInit('[js-hook-module-support]', 'requestSupport', () => support);
+moduleInit('[js-hook-module-chat]', 'openChat', () => support);
+moduleInit('[js-hook-module-chat-form]', 'sendChatMessage', () => support);

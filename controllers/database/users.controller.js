@@ -63,6 +63,8 @@ export default {
     });
 
     newUser.save((error) => {
+      console.log('saved');
+      console.log(error);
       if (!error) {
         verificationEmail(email, emailToken);
       }
