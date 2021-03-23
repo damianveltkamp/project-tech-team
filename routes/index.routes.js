@@ -1,6 +1,7 @@
 import express from 'express';
 import * as base from '@controllers/default.controller';
 import * as account from '@controllers/account.controller';
+import * as admin from '@controllers/admin.controller';
 import { setCookie } from '@helpers/default.helpers';
 import userController from '@controllers/database/users.controller';
 
@@ -58,6 +59,19 @@ router.get('/user-settings', (req, res) => {
   return res.redirect('/');
 });
 router.post('/user-settings', account.updateUserSettings, account.userSettings);
+router.get('/admin', async (req, res) => {
+  const io = req.app.get('io');
+  console.log(io.sockets.adapter.rooms);
+
+  if (req.session.userID !== undefined) {
+    const user = await userController.getUserByID(req.session.userID);
+    return user.role === 'admin'
+      ? admin.dashboard(req, res)
+      : res.redirect('/');
+  }
+
+  return res.redirect('/');
+});
 router.get('*', base.notFound);
 
 export default router;

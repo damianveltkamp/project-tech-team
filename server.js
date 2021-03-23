@@ -5,6 +5,8 @@ import compression from 'compression';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import connectRedis from 'connect-redis';
+import http from 'http';
+import socketIO from 'socket.io';
 import router from './routes/index.routes';
 import * as defaultHelpers from './helpers/default.helpers';
 
@@ -17,9 +19,20 @@ const environment = process.env.ENVIRONMENT || 'development';
 const redisPort = process.env.REDIS_PORT || 6379;
 const redisString = defaultHelpers.setRedisString(environment, redisPort);
 const redisClient = defaultHelpers.setupRedisClient(environment, redisString);
-// This is not written in cammelcase because this is a constructor
-const RedisStore = connectRedis(session);
+const redisStore = connectRedis(session);
 const dbUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}`;
+const server = http.createServer(app);
+const io = new socketIO(server);
+
+io.on('connection', (socket) => {
+  console.log('User connected to server');
+
+  socket.on('joinRoom', () => {
+    console.log('socket wanting to join room');
+    socket.join('kamer');
+    console.log(io.sockets.adapter.rooms);
+  });
+});
 
 mongoose.connect(dbUrl, {
   useUnifiedTopology: true,
@@ -35,8 +48,10 @@ const nunjucksEnv = nunjucks
   .addGlobal('jsBundle', defaultHelpers.getJsBundleName())
   .addGlobal('cssBundle', defaultHelpers.getCssBundleName());
 
+// TODO Favicon afvangen want word nu 2x heeeeeeye gelogt
 app
   .use(compression())
+  .use(express.static('static'))
   .use(express.json())
   .use(urlEncodedParser)
   .use(
@@ -45,10 +60,11 @@ app
       name: process.env.SESSION_NAME,
       resave: false,
       saveUninitialized: true,
-      store: new RedisStore({ client: redisClient }),
+      store: new redisStore({ client: redisClient }),
     }),
   )
   .use((req, res, next) => {
+    console.log('heeeeeeye');
     defaultHelpers.setCookieExpire(req);
     if (req.session.userID) {
       nunjucksEnv.addGlobal('loggedIn', req.session.userID);
@@ -58,7 +74,8 @@ app
     nunjucksEnv.addGlobal('loggedIn', false);
     return next();
   })
-  .use(express.static('static'))
   .set('view engine', 'html')
-  .use('/', router)
-  .listen(port);
+  .set('io', io)
+  .use('/', router);
+
+server.listen(port);
