@@ -194,7 +194,7 @@ export function login(req, res) {
 
 export function logout(req, res) {
   req.session.destroy(function (err) {
-    console.log('destroyed session');
+    // TODO show message to user when session destroyd
   });
 
   res.redirect('/');
