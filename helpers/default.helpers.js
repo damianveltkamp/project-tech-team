@@ -1,6 +1,7 @@
 import fs from 'fs';
 import dotenv from 'dotenv';
 import redis from 'redis';
+import moment from 'moment';
 
 dotenv.config();
 
@@ -43,5 +44,15 @@ export function setCookie({ session, loggedInUser }) {
 }
 
 export function setCookieExpire({ session }) {
-  session.cookie.expires = new Date(Date.now() + 3600000 / 2);
+  // session.cookie.expires = new Date(Date.now() + 3600000 / 4);
+  session.cookie.expires = new Date(Date.now() + 5000);
+}
+
+export function cookieExpireHandler({ session }, res) {
+  setInterval(() => {
+    const expired = moment().isAfter(session.cookie._expires);
+    if (expired === true) {
+      return res.redirect('/');
+    }
+  }, 1000);
 }

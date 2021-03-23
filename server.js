@@ -49,7 +49,6 @@ app
     }),
   )
   .use((req, res, next) => {
-    defaultHelpers.setCookieExpire(req);
     if (req.session.userID) {
       nunjucksEnv.addGlobal('loggedIn', req.session.userID);
       return next();

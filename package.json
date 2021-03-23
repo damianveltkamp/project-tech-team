@@ -31,6 +31,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "module-alias": "^2.2.2",
+    "moment": "^2.29.1",
     "mongodb": "^3.6.4",
     "mongoose": "^5.11.15",
     "nodemailer": "^6.5.0",

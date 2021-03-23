@@ -1,7 +1,11 @@
 import express from 'express';
 import * as base from '@controllers/default.controller';
 import * as account from '@controllers/account.controller';
-import { setCookie } from '@helpers/default.helpers';
+import {
+  setCookie,
+  setCookieExpire,
+  cookieExpireHandler,
+} from '@helpers/default.helpers';
 import userController from '@controllers/database/users.controller';
 
 const router = express.Router();
@@ -37,6 +41,9 @@ router.post('/login', account.loginUser, async (req, res) => {
 
   // Set user information in cookie
   setCookie(req);
+  setCookieExpire(req);
+  cookieExpireHandler(req, res);
+
   req.session.userID = req.loggedInUser;
   const user = await userController.getUserByID(req.loggedInUser);
 
