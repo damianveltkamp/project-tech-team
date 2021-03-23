@@ -44,8 +44,7 @@ export function setCookie({ session, loggedInUser }) {
 }
 
 export function setCookieExpire({ session }) {
-  // session.cookie.expires = new Date(Date.now() + 3600000 / 4);
-  session.cookie.expires = new Date(Date.now() + 5000);
+  session.cookie.expires = new Date(Date.now() + 3600000 / 4);
 }
 
 export function cookieExpireHandler({ session }) {
