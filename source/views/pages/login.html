@@ -1,0 +1,62 @@
+{% extends  layout %}
+{% block  content %}
+<div class="o-container">
+  <h1 class="form__heading">{{ title }}</h1>
+  {% if errors.isVerified %}
+  <section class="form__resend-verify-container">
+    <span class="form__error">
+      {{ errors.isVerified.message }}
+    </span>
+    <form action="/resendVerificationEmail" method="POST">
+      <input name="email" type="hidden" value="{{ errors.isVerified.email }}">
+      <button class="c-button">Resend verification email</button>
+    </form>
+  </section>
+  {% endif %}
+  <form class="c-form" action="/login" method="POST" js-hook-module-form-validation>
+    {% if errors.default %}
+    <span class="form__error form__error--default">
+      {{ errors.default }}
+    </span>
+    {% endif %}
+    <fieldset class="form__fieldset">
+      <legend class="form__fieldset-legend">Account information</legend>
+      <label class="form__label">
+        <span class="form__label-value">
+          Email
+        </span>
+        {% if errors.email %}
+        <span class="form__error">
+          {{ errors.email }}
+        </span>
+        {% endif %}
+        <input class="form__input" name="email" type="text" required js-hook-validate>
+      </label>
+      <label class="form__label">
+        <span class="form__label-value">
+          Password
+        </span>
+        {% if errors.password %}
+        <span class="form__error">
+          {{ errors.password }}
+        </span>
+        {% endif %}
+        <input class="form__input" name="password" type="password" required js-hook-validate>
+      </label>
+    </fieldset>
+    <fieldset class="form__fieldset">
+      <legend class="form__fieldset-legend">Captcha verification</legend>
+      {% if errors.captcha %}
+      <span class="form__error">
+        {{ errors.captcha }}
+      </span>
+      {% endif %}
+      <div class="g-recaptcha" data-sitekey="{{ captchaSiteKey }}"></div>
+    </fieldset>
+    <fieldset class="form__fieldset">
+      <legend class="form__fieldset-legend">Form controls</legend>
+      <button class="c-button">Login</button>
+    </fieldset>
+  </form>
+</div>
+{% endblock %}

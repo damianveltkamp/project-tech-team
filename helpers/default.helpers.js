@@ -1,4 +1,8 @@
 import fs from 'fs';
+import dotenv from 'dotenv';
+import redis from 'redis';
+
+dotenv.config();
 
 export function getComponentPaths() {
   const componentsPath = 'source/components';
@@ -19,4 +23,25 @@ export function getCssBundleName() {
 export function getJsBundleName() {
   const jsBundle = fs.readdirSync('static/build/js/');
   return jsBundle[0];
+}
+
+export function setRedisString(environment, redisPort) {
+  return environment === 'development'
+    ? `redis://${process.env.REDIS_USER}:${process.env.REDIS_PASS}@${process.env.REDIS_HOST}:${redisPort}`
+    : `rediss://${process.env.REDIS_USER}:${process.env.REDIS_PASS}@${process.env.REDIS_HOST}:${redisPort}`;
+}
+
+export function setupRedisClient(environment, redisString) {
+  return environment === 'development'
+    ? redis.createClient(redisString)
+    : redis.createClient(redisString, { tls: {} });
+}
+
+export function setCookie({ session, loggedInUser }) {
+  session.userID = loggedInUser;
+  return session;
+}
+
+export function setCookieExpire({ session }) {
+  session.cookie.expires = new Date(Date.now() + 3600000 / 2);
 }

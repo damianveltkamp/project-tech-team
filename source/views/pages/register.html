@@ -1,0 +1,54 @@
+{% extends  layout %}
+{% block  content %}
+<div class="o-container">
+  <h1 class="form__heading">{{ title }}</h1>
+  <form class="c-form" action="/register" method="POST" js-hook-module-form-validation>
+    {% if errors.default %}
+    <span class="form__error">
+      {{ errors.default }}
+    </span>
+    {% endif %}
+    <fieldset class="form__fieldset">
+      <label class="form__label">
+        <span class="form__label-value">
+          Email
+        </span>
+        {% if errors.email %}
+        <span class="form__error">
+          {{ errors.email }}
+        </span>
+        {% endif %}
+        <input class="form__input" name="email" type="text" required js-hook-validate>
+      </label>
+      <label class="form__label">
+        <span class="form__label-value">
+          Password (No special characters, 8 characters minimum, atleast 1 digit and 1 uppercase letter)
+        </span>
+        {% if errors.repeatPassword %}
+        <span class="form__error">
+          {{ errors.repeatPassword }}
+        </span>
+        {% endif %}
+        <input  class="form__input" name="password" type="password" required js-hook-validate>
+      </label>
+      <label class="form__label">
+        <span class="form__label-value">
+          Repeat password
+        </span>
+        <input class="form__input" name="repeatPassword" type="password" required js-hook-validate>
+      </label>
+    </fieldset>
+    <fieldset class="form__fieldset">
+      {% if errors.captcha %}
+      <span class="form__error">
+        {{ errors.captcha }}
+      </span>
+      {% endif %}
+      <div class="g-recaptcha" data-sitekey="{{ captchaSiteKey }}"></div>
+    </fieldset>
+    <fieldset class="form__fieldset">
+      <button class="c-button">Register</button>
+    </fieldset>
+  </form>
+</div>
+{% endblock %}

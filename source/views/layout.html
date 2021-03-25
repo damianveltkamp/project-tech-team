@@ -2,17 +2,35 @@
 <html lang="en">
   <head>
     <title>{{ title }}</title>
+    <link rel="icon" type="image/png" href="/images/default-placeholder.png"/>
     <link rel="stylesheet" href="/build/css/{{cssBundle}}" />
   </head>
   <body>
     {% include 'header.html' %}
 
     <main>
+      {{ userID }}
       {% block content %}
       {% endblock %}
+      <section class=".c-support">
+        <button data-id="{{userID}}" js-hook-module-support>Support</button>
+      </section>
+      <section class="c-support-chat" js-hook-support-chat>
+        <div class="support-chat__window" js-hook-module-get-messages>
+        </div>
+        <form js-hook-module-chat-form>
+          <input name="roomID" type="hidden" value="" js-hook-roomid>
+          <input name="message" type="text" js-hook-chat-message>
+          <button>Send</button>
+        </form>
+      </section>
     </main>
 
     {% include 'footer.html' %}
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      let socket = io();
+    </script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="/build/js/{{jsBundle}}" async defer type="module"></script>
   </body>

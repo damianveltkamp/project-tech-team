@@ -1,0 +1,18 @@
+{% from "overview-card.html" import overviewCard %}
+
+{% extends  layout %}
+{% block  content %}
+  <div class="o-container">
+    <h1>{{ title }}</h1>
+
+    <section class="c-overview" js-hook-module-overview>
+      <div class="overview__slider">
+        {% for company in companies %}
+          {{ overviewCard({
+            company: company
+          }) }}
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+{% endblock %}

@@ -1,0 +1,9 @@
+.c-overview-card {
+  position: relative;
+  flex: 0 0 100%;
+  background: #eee;
+
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+}
