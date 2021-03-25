@@ -8,3 +8,4 @@ moduleInit('[js-hook-module-overview]', '', () => overview);
 moduleInit('[js-hook-module-support]', 'requestSupport', () => support);
 moduleInit('[js-hook-module-chat]', 'openChat', () => support);
 moduleInit('[js-hook-module-chat-form]', 'sendChatMessage', () => support);
+moduleInit('[js-hook-module-get-messages]', 'getChatMessages', () => support);

@@ -70,7 +70,6 @@ router.get('/admin', async (req, res) => {
 
   return res.redirect('/');
 });
-router.post('/chat', chat.sendChatMessage);
 router.get('*', base.notFound);
 
 export default router;
