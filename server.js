@@ -26,9 +26,7 @@ const server = http.createServer(app);
 const io = new socketIO(server);
 
 io.on('connection', (socket) => {
-  console.log(`connected ${socket}`);
   socket.on('joinRoom', (roomID) => {
-    console.log(roomID);
     socket.join(`custom:${roomID}`);
   });
 
