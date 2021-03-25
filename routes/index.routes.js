@@ -1,8 +1,10 @@
 import express from 'express';
+import passport from 'passport';
 import * as base from '@controllers/default.controller';
 import * as account from '@controllers/account.controller';
 import { setCookie } from '@helpers/default.helpers';
 import userController from '@controllers/database/users.controller';
+import * as gitLogin from '@controllers/github.controller';
 
 const router = express.Router();
 
@@ -45,10 +47,14 @@ router.post('/login', account.loginUser, async (req, res) => {
 router.post('/resendVerificationEmail', account.resendVerificationEmail);
 router.get('/onboarding', account.onboardingFlow);
 router.post('/onboarding', account.postOnboardingFlow, (req, res) =>
-  res.redirect('/'),
+  res.redirect('/')
 );
 router.get('/user-settings', account.userSettings);
 router.post('/user-settings', account.updateUserSettings, account.userSettings);
 router.get('*', base.notFound);
+router.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }));
+router.post('/auth/github/callback',  passport.authenticate('github', { failureRedirect: '/login' }), (req, res) =>
+  res.redirect('/onboarding') 
+);
 
 export default router;
