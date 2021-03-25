@@ -2,7 +2,9 @@ import userSettingsModel from '@models/user.settings.model';
 import userModel from '@models/user.model';
 
 function setHasSetupAccount(id) {
-  userModel.findOneAndUpdate({ _id: id }, { hasSetupAccount: true });
+  userModel
+    .findOneAndUpdate({ _id: id }, { $set: { hasSetupAccount: true } })
+    .then((user) => user);
 }
 
 export default {
@@ -11,7 +13,6 @@ export default {
       userID,
       name,
     });
-
     newUserSettingsProfile.save((error) => {
       if (!error) {
         setHasSetupAccount(userID);
@@ -33,4 +34,9 @@ export default {
       .findOne({ userID })
       .lean()
       .then((profile) => profile),
+  removeMatch(userID, symbol) {
+    userSettingsModel
+      .findOneAndUpdate({ userID }, { $pull: { likedCompanies: symbol } })
+      .then((profile) => profile);
+  },
 };

@@ -1,0 +1,13 @@
+{% from "overview-card.html" import overviewCard %}
+
+{% extends  layout %}
+{% block  content %}
+  <h1>{{ title }}</h1>
+
+  {% for match in matches%}
+    {{ overviewCard({
+      company: match,
+      likeing: false
+    }) }}
+  {% endfor %}
+{% endblock %}

@@ -25,6 +25,10 @@ const clusterSchema = new schema({
     type: Boolean,
     default: false,
   },
+  role: {
+    type: String,
+    default: 'user',
+  },
 });
 
 export default mongoose.model('users', clusterSchema);

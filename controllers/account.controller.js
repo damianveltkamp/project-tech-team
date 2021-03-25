@@ -192,6 +192,14 @@ export function login(req, res) {
   res.render('pages/login.html', data);
 }
 
+export function logout(req, res) {
+  req.session.destroy(function (err) {
+    // TODO show message to user when session destroyd
+  });
+
+  res.redirect('/');
+}
+
 export async function loginUser(req, res, next) {
   const user = await userController.getUser(req.body.email);
 
@@ -216,11 +224,11 @@ export async function onboardingFlow(req, res) {
 
   if (req.session.userID) {
     const loggedInUser = await userController.getUserByID(req.session.userID);
+
     return loggedInUser.hasSetupAccount === true
       ? res.redirect('/')
       : res.render('pages/onboarding.html', data);
   }
-
   return res.redirect('/login');
 }
 
@@ -231,8 +239,12 @@ export async function postOnboardingFlow(req, res, next) {
 }
 
 export function userSettings(req, res) {
-  const data = {};
-  res.render('user-settings.html', data);
+  // TODO fix usersettings page
+  const data = {
+    layout: 'layout.html',
+    title: 'User settings',
+  };
+  res.render('pages/user-settings.html', data);
 }
 
 export function updateUserSettings(req, res, next) {
