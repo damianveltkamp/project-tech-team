@@ -1,5 +1,3 @@
-let socket = io();
-
 function createMesageElement(message, nodeClass) {
   const node = document.createElement('div');
   const textNode = document.createTextNode(message);
@@ -23,6 +21,7 @@ export function openChat() {
 
   [...openChatButton].forEach((node) => {
     node.addEventListener('click', () => {
+      // TODO fix hiding and showing of chat
       chatContainer.classList.remove('hide');
       const roomidContainer = chatContainer.querySelector('[type=hidden]');
       roomidContainer.value = node.dataset.id;
@@ -48,7 +47,6 @@ export function sendChatMessage() {
 }
 
 export function getChatMessages() {
-  // TODO append html to ontvnager
   socket.on('send-message', (message) => {
     const messageContainer = document.querySelector(
       '[js-hook-module-get-messages]',
@@ -56,6 +54,5 @@ export function getChatMessages() {
 
     const messageElement = createMesageElement(message, 'receiver');
     messageContainer.insertBefore(messageElement, messageContainer.firstChild);
-    console.log(message);
   });
 }
