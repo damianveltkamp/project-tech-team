@@ -2,6 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import nunjucks from 'nunjucks';
 import compression from 'compression';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import connectRedis from 'connect-redis';
@@ -25,12 +26,18 @@ const server = http.createServer(app);
 const io = new socketIO(server);
 
 io.on('connection', (socket) => {
-  console.log('User connected to server');
+  console.log(`connected ${socket}`);
+  socket.on('joinRoom', (roomID) => {
+    console.log(roomID);
+    socket.join(`custom:${roomID}`);
+  });
 
-  socket.on('joinRoom', (userID) => {
-    console.log('socket wanting to join room');
-    // TODO dynamic room based on userid
-    socket.join(`custom:${userID}`);
+  socket.on('message', ({ message, roomID }) => {
+    socket.broadcast.to(`custom:${roomID}`).emit('send-message', message);
+  });
+
+  socket.on('disconnect', () => {
+    socket.removeAllListeners();
   });
 });
 
@@ -52,6 +59,7 @@ const nunjucksEnv = nunjucks
 app
   .use(compression())
   .use(express.static('static'))
+  .use(cors())
   .use(express.json())
   .use(urlEncodedParser)
   .use(
