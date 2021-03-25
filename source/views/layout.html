@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>{{ title }}</title>
+    <link rel="icon" type="image/png" href="/images/default-placeholder.png"/>
     <link rel="stylesheet" href="/build/css/{{cssBundle}}" />
   </head>
   <body>
@@ -10,6 +11,18 @@
     <main>
       {% block content %}
       {% endblock %}
+      <section class=".c-support">
+        <button data-id="{{userID}}" js-hook-module-support>Support</button>
+      </section>
+      <section class="c-support-chat hide" js-hook-support-chat>
+        <div class="support-chat__window">
+        </div>
+        <form js-hook-module-chat-form>
+          <input name="roomID" type="hidden" value="">
+          <input name="message" type="text">
+          <button>Send</button>
+        </form>
+      </section>
     </main>
 
     {% include 'footer.html' %}
