@@ -34,7 +34,7 @@ nunjucks
   })
   .addGlobal('jsBundle', defaultHelpers.getJsBundleName())
   .addGlobal('cssBundle', defaultHelpers.getCssBundleName());
-
+ 
 app
   .use(compression())
   .use(express.json())

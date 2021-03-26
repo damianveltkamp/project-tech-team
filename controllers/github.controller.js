@@ -1,5 +1,5 @@
 export function gitLogin(){
-    // const passport = require('passport')
+    const passport = require('passport')
     const GitHubStrategy = require('passport-github2').Strategy;
 
     passport.use(new GitHubStrategy({

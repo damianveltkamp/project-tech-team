@@ -52,8 +52,8 @@ router.post('/onboarding', account.postOnboardingFlow, (req, res) =>
 router.get('/user-settings', account.userSettings);
 router.post('/user-settings', account.updateUserSettings, account.userSettings);
 router.get('*', base.notFound);
-router.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }));
-router.post('/auth/github/callback',  passport.authenticate('github', { failureRedirect: '/login' }), (req, res) =>
+router.get('/auth/github', gitLogin, passport.authenticate('github', { scope: [ 'user:email' ] }));
+router.post('/auth/github/callback', gitLogin, passport.authenticate('github', { failureRedirect: '/login' }), (req, res) =>
   res.redirect('/onboarding') 
 );
 
