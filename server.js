@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 import connectRedis from 'connect-redis';
 import http from 'http';
 import socketIO from 'socket.io';
+import passport from 'passport';
 import router from './routes/index.routes';
 import * as defaultHelpers from './helpers/default.helpers';
 
@@ -69,6 +70,8 @@ app
       store: new redisStore({ client: redisClient }),
     }),
   )
+  .use(passport.initialize())
+  .use(passport.session())
   .use((req, res, next) => {
     defaultHelpers.setCookieExpire(req);
     if (req.session.userID) {

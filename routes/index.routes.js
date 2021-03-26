@@ -1,10 +1,14 @@
 import express from 'express';
+import passport from 'passport';
 import * as base from '@controllers/default.controller';
 import * as account from '@controllers/account.controller';
 import * as admin from '@controllers/admin.controller';
-import * as chat from '@controllers/chat.controller';
+import { passportInit } from '@controllers/github.controller';
 import { setCookie } from '@helpers/default.helpers';
 import userController from '@controllers/database/users.controller';
+import userSettings from '@controllers/database/users.settings.controller';
+
+passportInit();
 
 const router = express.Router();
 
@@ -38,8 +42,7 @@ router.post('/login', account.loginUser, async (req, res) => {
   }
 
   // Set user information in cookie
-  setCookie(req);
-  req.session.userID = req.loggedInUser;
+  console.log(req.session);
   const user = await userController.getUserByID(req.loggedInUser);
 
   return user.hasSetupAccount === false
@@ -70,6 +73,22 @@ router.get('/admin', async (req, res) => {
 
   return res.redirect('/');
 });
+router.get('/auth/github', passport.authenticate('github'));
+router.get(
+  '/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  async (req, res) => {
+    req.session.userID = req.user.id;
+    req.session.githubUser = true;
+    const userProfile = await userSettings.getUserProfile(req.session.userID);
+
+    if (userProfile) {
+      return res.redirect('/overview');
+    }
+
+    return res.redirect('/onboarding');
+  },
+);
 router.get('*', base.notFound);
 
 export default router;
