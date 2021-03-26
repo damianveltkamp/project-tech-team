@@ -1,4 +1,16 @@
+{% from "header-image.html" import headerImage %}
+
 {% extends  layout %}
 {% block  content %}
-  <h1>{{ title }}</h1>
+  {{ headerImage({
+    image: {
+      url: 'images/header-image.jpg',
+      alt: 'Header image'
+    }
+  }) }}
+
+  <div class="o-container">
+    <h1>{{ title }}</h1>
+    <p>{{ description }}</p>
+  </div>
 {% endblock %}

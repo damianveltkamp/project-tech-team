@@ -3,7 +3,9 @@ import userSettingsController from './database/users.settings.controller';
 export function home(req, res) {
   const data = {
     layout: 'layout.html',
-    title: 'Home page',
+    title: 'We are MA stock',
+    description:
+      'A young and very passionate agency specialized in the stock market. With us you will find the shares of companies that best suit your preferen- ces.',
   };
 
   res.render('pages/home.html', data);
