@@ -19,6 +19,11 @@
       {{ errors.default }}
     </span>
     {% endif %}
+    {% if errors.limit %}
+    <span class="form__error form__error--default">
+      {{ errors.limit }}
+    </span>
+    {% endif %}
     <fieldset class="form__fieldset">
       <legend class="form__fieldset-legend">Account information</legend>
       <label class="form__label">
@@ -55,11 +60,12 @@
     </fieldset>
     <fieldset class="form__fieldset">
       <legend class="form__fieldset-legend">Form controls</legend>
-      <button class="c-button">Login</button>
+      {% if not errors.limit %}
+        <button class="c-button">Login</button>
+      {% endif %}
+      <a class="c-button" href="/auth/github">Login with github</a>
     </fieldset>
   </form>
-  <section class="c-github-login">
-    <a href="/auth/github">Login with github</a>
-  </section>
+  <p>Don't have an account? <a href="./register">Sign up</a></p>
 </div>
 {% endblock %}
