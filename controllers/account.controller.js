@@ -210,7 +210,7 @@ export async function loginUser(req, res, next) {
   );
 
   if (!Object.keys(req.errors).length) {
-    req.loggedInUser = user._id;
+    req.session = user._id;
   }
 
   return next();
@@ -222,19 +222,25 @@ export async function onboardingFlow(req, res) {
     title: 'Onboarding page',
   };
 
-  if (req.session.userID) {
+  if (req.session.userID === undefined) {
+    return res.redirect('/login');
+  }
+
+  if (req.session.githubUser === undefined) {
     const loggedInUser = await userController.getUserByID(req.session.userID);
 
     return loggedInUser.hasSetupAccount === true
       ? res.redirect('/')
       : res.render('pages/onboarding.html', data);
   }
-  return res.redirect('/login');
+
+  if (req.session.githubUser === true) {
+    return res.render('pages/onboarding.html', data);
+  }
 }
 
 export async function postOnboardingFlow(req, res, next) {
-  const loggedInUser = await userController.getUserByID(req.session.userID);
-  userSettingsController.createNewUserProfile(loggedInUser._id, req.body);
+  userSettingsController.createNewUserProfile(req.session.userID, req.body);
   next();
 }
 

@@ -36,6 +36,8 @@
     "mongoose": "^5.11.15",
     "nodemailer": "^6.5.0",
     "nunjucks": "^3.2.3",
+    "passport": "^0.4.1",
+    "passport-github2": "^0.1.12",
     "redis": "^3.0.2",
     "socket.io": "^2.4.0"
   },
