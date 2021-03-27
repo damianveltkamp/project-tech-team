@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,100&display=swap');
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-weight: 500;
+}
+
+p {
+  font-weight: 400;
+}
+
+a {
+  font-weight: 400;
+}
+
+li {
+  font-weight: 100;
+  font-size: 0.9em;
+}
+
+label {
+  font-weight: 400;
+  font-size: 1em;
+}
+
+input::placeholder {
+  font-weight: 100;
+  font-style: italic;
+}

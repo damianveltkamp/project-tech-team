@@ -1,0 +1,70 @@
+.form__fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.form__fieldset-legend {
+  visibility: hidden;
+}
+
+.form__label {
+  display: block;
+}
+// .form__label-value{
+//   margin-bottom: 5em;
+// }
+.form__input {
+  display: block;
+  width: 100%;
+  margin: 0.5em 0 2em;
+  padding: 0 0.5em;
+  height: 3em;
+  border: 0.1em solid $brown;
+  border-radius: 10px;
+  font-size: 1em;
+}
+
+.form__radiolabel {
+  display: inline-block;
+  width: 90%;
+}
+
+.g-recaptcha {
+  margin-top: 1.3em;
+}
+
+.c-button {
+  background-color: $dark-blue;
+  color: $color-white;
+  border-radius: 14px;
+  padding: 0.3em 1.5em;
+  margin-top: 1.5em;
+  font-size: 17px;
+}
+
+.form__list {
+  padding-left: 20px;
+}
+
+.form__list-element {
+  list-style-type: circle;
+}
+
+hr {
+  border-top: 1px solid $brown;
+  margin-top: 5em;
+  position: relative;
+}
+
+p.or {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -2.5em;
+  padding: 1em;
+  background-color: $color-white;
+  color: $brown;
+  font-size: 1.2em;
+  font-weight: 100;
+}
