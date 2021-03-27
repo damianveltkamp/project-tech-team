@@ -4,7 +4,7 @@ import * as base from '@controllers/default.controller';
 import * as account from '@controllers/account.controller';
 import * as admin from '@controllers/admin.controller';
 import { passportInit } from '@controllers/github.controller';
-import { setCookie } from '@helpers/default.helpers';
+import { setCookie, unsetPopup } from '@helpers/default.helpers';
 import userController from '@controllers/database/users.controller';
 import userSettings from '@controllers/database/users.settings.controller';
 
@@ -30,11 +30,14 @@ router.get('/matches-overview', base.matchesOverview);
 router.post('/matches-overview', base.matchesOverviewPost);
 router.get('/verify-account', account.verify);
 router.get('/register', account.register);
-router.post('/register', account.registerUser, (req, res) =>
-  Object.keys(req.errors).length && req.errors.constructor === Object
-    ? account.register(req, res)
-    : res.redirect('/'),
-);
+router.post('/register', account.registerUser, (req, res) => {
+  if (Object.keys(req.errors).length && req.errors.constructor === Object) {
+    account.register(req, res);
+  }
+
+  req.session.verification = true;
+  return res.redirect('/');
+});
 router.get('/login', account.login);
 router.post('/login', account.loginUser, async (req, res) => {
   if (Object.keys(req.errors).length && req.errors.constructor === Object) {
@@ -87,6 +90,7 @@ router.get(
     return res.redirect('/onboarding');
   },
 );
+router.post('/popup', unsetPopup);
 router.get('*', base.notFound);
 
 export default router;

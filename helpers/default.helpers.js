@@ -45,3 +45,8 @@ export function setCookie({ session, loggedInUser }) {
 export function setCookieExpire({ session }) {
   session.cookie.expires = new Date(Date.now() + 3600000 / 2);
 }
+
+export function unsetPopup(req, res) {
+  req.session.verification = null;
+  res.send('succesfuly removed popup');
+}

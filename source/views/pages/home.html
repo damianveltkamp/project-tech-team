@@ -1,4 +1,12 @@
 {% extends  layout %}
 {% block  content %}
   <h1>{{ title }}</h1>
+
+  {% if verification %}
+    <section class="c-popup" js-hook-module-popup>
+      <h2>Check your mail</h2>
+      <p>Thanks you for registering, we have sent you an email with a link to verify your account.</p>
+      <button js-hook-popup-close>I get it</button>
+    </section>
+  {% endif %}
 {% endblock %}

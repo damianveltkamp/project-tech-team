@@ -1,9 +1,11 @@
 import userSettingsController from './database/users.settings.controller';
 
 export function home(req, res) {
+  console.log(req.session);
   const data = {
     layout: 'layout.html',
     title: 'Home page',
+    verification: req.session.verification,
   };
 
   res.render('pages/home.html', data);
