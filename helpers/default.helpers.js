@@ -6,8 +6,8 @@ import * as account from '@controllers/account.controller';
 
 dotenv.config();
 
-const limiter = new RateLimiter.RateLimiter(2, 20000);
-const registerLimiter = new RateLimiter.RateLimiter(2, 20000);
+const limiter = new RateLimiter.RateLimiter(20, 20000);
+const registerLimiter = new RateLimiter.RateLimiter(20, 20000);
 
 export function getComponentPaths() {
   const componentsPath = 'source/components';
