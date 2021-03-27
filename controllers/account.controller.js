@@ -210,13 +210,14 @@ export async function loginUser(req, res, next) {
   );
 
   if (!Object.keys(req.errors).length) {
-    req.session = user._id;
+    req.session.userID = user._id;
   }
 
   return next();
 }
 
 export async function onboardingFlow(req, res) {
+  console.log('Hello');
   const data = {
     layout: 'layout.html',
     title: 'Onboarding page',

@@ -1,7 +1,6 @@
 import userSettingsController from './database/users.settings.controller';
 
 export function home(req, res) {
-  console.log(req.session);
   const data = {
     layout: 'layout.html',
     title: 'We are MA stock',
