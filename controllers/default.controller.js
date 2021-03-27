@@ -4,7 +4,9 @@ export function home(req, res) {
   console.log(req.session);
   const data = {
     layout: 'layout.html',
-    title: 'Home page',
+    title: 'We are MA stock',
+    description:
+      'A young and very passionate agency specialized in the stock market. With us you will find the shares of companies that best suit your preferen- ces.',
     verification: req.session.verification,
   };
 

@@ -1,0 +1,14 @@
+.c-button {
+  padding: 10px 20px;
+  display: inline-block;
+  border-radius: 20px;
+  background: $dark-blue;
+  color: $color-white;
+  transition: background 250ms ease-in-out, color 250ms ease-in-out;
+  text-decoration: none;
+
+  @include hover-focus {
+    background: $light-blue;
+    color: $color-white;
+  }
+}

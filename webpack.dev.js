@@ -50,6 +50,7 @@ module.exports = merge(defaultWebpackConfig, {
       port: 3001,
       proxy: 'http://localhost:3000',
       files: ['static/build', 'source/**/*.html', '*.js'],
+      notify: false,
     }),
   ],
 });

@@ -1,0 +1,14 @@
+.c-header {
+  padding: 15px 0;
+  background: $light-brown;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  margin: 0;
+}

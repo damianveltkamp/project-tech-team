@@ -1,0 +1,24 @@
+.c-menu {
+}
+
+.menu__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu__list-item {
+  display: inline-flex;
+  &:not(:last-child) {
+    margin-right: 15px;
+  }
+}
+
+.menu__list-anchor {
+  text-decoration: none;
+  transition: border-bottom 250ms ease-in-out;
+
+  @include hover-focus {
+    border-bottom: 1px solid $color-black;
+  }
+}
