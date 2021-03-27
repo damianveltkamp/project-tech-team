@@ -1,7 +1,11 @@
 import express from 'express';
 import * as base from '@controllers/default.controller';
 import * as account from '@controllers/account.controller';
-import { setCookie } from '@helpers/default.helpers';
+import {
+  setCookie,
+  rateLimit,
+  registerRateLimit,
+} from '@helpers/default.helpers';
 import userController from '@controllers/database/users.controller';
 
 const router = express.Router();
@@ -22,13 +26,13 @@ router.get('/overview', (req, res) => {
 router.post('/overview', base.overviewPost);
 router.get('/verify-account', account.verify);
 router.get('/register', account.register);
-router.post('/register', account.registerUser, (req, res) =>
+router.post('/register', registerRateLimit, account.registerUser, (req, res) =>
   Object.keys(req.errors).length && req.errors.constructor === Object
     ? account.register(req, res)
     : res.redirect('/'),
 );
 router.get('/login', account.login);
-router.post('/login', account.loginUser, async (req, res) => {
+router.post('/login', rateLimit, account.loginUser, async (req, res) => {
   if (Object.keys(req.errors).length && req.errors.constructor === Object) {
     return account.login(req, res);
   }

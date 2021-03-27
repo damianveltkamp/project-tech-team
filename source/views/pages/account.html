@@ -1,0 +1,30 @@
+{% extends layout %}
+{% block content %}
+
+<form id="accountForm" method="POST" action="/account" >
+    <input type="hidden" id="id" name="userID">
+
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">Man</label>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">vrouw</label>
+    <input type="radio" id="other" name="gender" value="other">
+    <label for="other">Anders</label>
+
+    <input type="text" name="firstName" value="" required>
+    <label for="firstName" class="label-firstName"><span class="content-firstName">Voornaam</span></label>
+
+    <input type="text" name="lastName" value="" required>
+    <label for="lastName" class="label-lastName"><span class="content-lastName">Achternaam</span></label>
+
+    <input type="email" name="email"  minlength="3" required>
+    <label for="email" class="label-email"><span class="content-email">E-mailadres</span></label>
+
+    <input type="date" id="birthday" name="birthday">
+    <label for="birthday" class="label-birthday"><span class="content-birthday">Geboortedatum</span></label>
+
+    <input type="submit" value="aanmelden" class="submit">
+</form>
+
+{% endblock %}
+

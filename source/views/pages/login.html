@@ -19,6 +19,11 @@
       {{ errors.default }}
     </span>
     {% endif %}
+    {% if errors.limit %}
+    <span class="form__error form__error--default">
+      {{ errors.limit }}
+    </span>
+    {% endif %}
     <fieldset class="form__fieldset">
       <legend class="form__fieldset-legend">Account information</legend>
       <label class="form__label">
@@ -30,7 +35,7 @@
           {{ errors.email }}
         </span>
         {% endif %}
-        <input class="form__input" name="email" type="text" required js-hook-validate>
+        <input class="form__input" name="email" type="text" placeholder="e-mail address" required js-hook-validate>
       </label>
       <label class="form__label">
         <span class="form__label-value">
@@ -41,7 +46,7 @@
           {{ errors.password }}
         </span>
         {% endif %}
-        <input class="form__input" name="password" type="password" required js-hook-validate>
+        <input class="form__input" name="password" type="password" placeholder="........" required js-hook-validate>
       </label>
     </fieldset>
     <fieldset class="form__fieldset">
@@ -55,8 +60,13 @@
     </fieldset>
     <fieldset class="form__fieldset">
       <legend class="form__fieldset-legend">Form controls</legend>
-      <button class="c-button">Login</button>
+      {% if not errors.limit %}
+        <button class="c-button">Login</button>
+      {% endif %}
     </fieldset>
   </form>
+  <p>Don't have an account? <a href="./register">Sign up</a></p>
+  <hr>
+  <p class="or">Or</p>
 </div>
 {% endblock %}

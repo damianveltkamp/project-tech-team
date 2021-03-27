@@ -8,6 +8,10 @@
       {{ errors.default }}
     </span>
     {% endif %}
+    {% if errors.registerLimit %}
+    <span class="form__error form__error--default">
+      {{ errors.registerLimit }}
+    {% endif %}
     <fieldset class="form__fieldset">
       <label class="form__label">
         <span class="form__label-value">
@@ -18,24 +22,30 @@
           {{ errors.email }}
         </span>
         {% endif %}
-        <input class="form__input" name="email" type="text" required js-hook-validate>
+        <input class="form__input" name="email" type="text" placeholder="e-mail address" required js-hook-validate>
       </label>
       <label class="form__label">
         <span class="form__label-value">
-          Password (No special characters, 8 characters minimum, atleast 1 digit and 1 uppercase letter)
+          Password 
         </span>
+        <ul class="form__list">
+          <li class="form__list-element">No special characters</li>
+          <li class="form__list-element">8 Characters minimum</li>
+          <li class="form__list-element">Atleast 1 digit</li>
+          <li class="form__list-element">1 Uppercase letter</li>
+        </ul>
         {% if errors.repeatPassword %}
         <span class="form__error">
           {{ errors.repeatPassword }}
         </span>
         {% endif %}
-        <input  class="form__input" name="password" type="password" required js-hook-validate>
+        <input  class="form__input" name="password" type="password" placeholder="........" required js-hook-validate>
       </label>
       <label class="form__label">
         <span class="form__label-value">
           Repeat password
         </span>
-        <input class="form__input" name="repeatPassword" type="password" required js-hook-validate>
+        <input class="form__input" name="repeatPassword" type="password" placeholder="........" required js-hook-validate>
       </label>
     </fieldset>
     <fieldset class="form__fieldset">
@@ -47,7 +57,9 @@
       <div class="g-recaptcha" data-sitekey="{{ captchaSiteKey }}"></div>
     </fieldset>
     <fieldset class="form__fieldset">
-      <button class="c-button">Register</button>
+      {% if not errors.registerLimit %}
+        <button class="c-button">Register</button>
+      {% endif %}
     </fieldset>
   </form>
 </div>

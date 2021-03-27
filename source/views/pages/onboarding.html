@@ -15,9 +15,31 @@
           {{ errors.name }}
         </span>
         {% endif %}
-        <input class="form__input" name="name" type="text" required>
+        <input class="form__input" name="name" type="text" placeholder="Your full name" required>
       </label>
-      <input type="hidden" value="">
+
+      <label class="form__label">
+        <span class="form__label-value">
+          Country/ Region
+        </span>
+        <input class="form__input" name="country" type="text" placeholder="....." >
+      </label>
+
+      <label class="form__label">
+        <span class="form__label-value">
+          Date of birth
+        </span>
+        <input class="form__input" name="dateOfBirth" type="date" >
+      </label>
+
+      <input type="radio" class="form__radiobutton" name="gender" value="male">
+      <label for="male" class="form__radiolabel">Male</label>
+      <input type="radio" class="form__radiobutton" name="gender" value="female">
+      <label for="female" class="form__radiolabel">Female</label>
+      <input type="radio" class="form__radiobutton" name="gender" value="other">
+      <label for="other" class="form__radiolabel">Other</label>
+
+      <input type="hidden" value="" >
     </fieldset>
     <fieldset class="form__fieldset">
       <button class="c-button">Save</button>
