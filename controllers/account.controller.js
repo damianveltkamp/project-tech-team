@@ -217,7 +217,6 @@ export async function loginUser(req, res, next) {
 }
 
 export async function onboardingFlow(req, res) {
-  console.log('Hello');
   const data = {
     layout: 'layout.html',
     title: 'Onboarding page',
