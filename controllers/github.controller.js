@@ -7,6 +7,7 @@ export function passportInit() {
       {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        // TODO verander deze sting
         callbackURL: `http://localhost:3000/auth/github/callback`,
       },
       (accessToken, refreshToken, profile, done) => {

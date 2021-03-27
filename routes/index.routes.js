@@ -41,8 +41,6 @@ router.post('/login', account.loginUser, async (req, res) => {
     return account.login(req, res);
   }
 
-  // Set user information in cookie
-  console.log(req.session);
   const user = await userController.getUserByID(req.loggedInUser);
 
   return user.hasSetupAccount === false
