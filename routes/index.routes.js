@@ -44,7 +44,7 @@ router.post('/login', account.loginUser, async (req, res) => {
     return account.login(req, res);
   }
 
-  const user = await userController.getUserByID(req.loggedInUser);
+  const user = await userController.getUserByID(req.session.userID);
 
   return user.hasSetupAccount === false
     ? res.redirect('/onboarding')

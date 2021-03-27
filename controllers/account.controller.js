@@ -210,7 +210,7 @@ export async function loginUser(req, res, next) {
   );
 
   if (!Object.keys(req.errors).length) {
-    req.session = user._id;
+    req.session.userID = user._id;
   }
 
   return next();

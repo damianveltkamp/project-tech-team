@@ -6,6 +6,29 @@
     {% if data.company.industry %}
       <p>{{ data.company.industry }}</p>
     {% endif %}
+    <p class="overview-card__description">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dapibus mollis rutrum. Morbi ac mi non nibh vehicula sodales. Aenean diam urna, molestie id neque nec, mollis tincidunt ex. Proin eu cursus mauris. Curabitur porttitor feugiat nunc quis bibendum. Fusce maximus orci quis mauris ornare, at viverra urna hendrerit.
+    </p>
+    <figure class="overview-card__figure">
+      <img class="overview-card__image" src="/images/chart.jpg" alt="Image of a chart">
+      <figcaption>
+        <a href="https://nl.vecteezy.com/gratis-vector/vector">Vector Vectoren door Vecteezy</a>
+      </figcaption>
+    </figure>
+    <div class="c-overview-card__price">
+      <p>
+      {% if data.company.currency === 'USD' %}
+        $
+      {% endif %}
+      {% if data.company.currency === 'CNY' %}
+        ¥
+      {% endif %}
+      130.49
+      </p>
+    </div>
+    {% if data.company.weburl %}
+      <h3>{{ data.company.weburl }}</h3>
+    {% endif %}
     {% if data.likeing === false %}
       <form action="/matches-overview" method="post">
         <input name="remove" type="hidden" value="true">
