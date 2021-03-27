@@ -1,4 +1,7 @@
 import userSettingsController from './database/users.settings.controller';
+import fetch from 'node-fetch';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export function home(req, res) {
   const data = {
@@ -11,33 +14,25 @@ export function home(req, res) {
 
 export async function overview(req, res) {
   // TODO dynamicaly fill companies array
-  const data = {
-    layout: 'layout.html',
-    title: 'Overview page',
-    companies: [
-      {
-        symbol: 'GME',
-        industry: 'Games',
-      },
-      {
-        symbol: 'TSL',
-        industry: 'Technologie',
-      },
-      {
-        symbol: 'GME2',
-        industry: 'Games',
-      },
-      {
-        symbol: 'GME3',
-        industry: 'Games',
-      },
-      {
-        symbol: 'GME4',
-        industry: 'Games',
-      },
-    ],
-  };
-
+  fetch(`http://finnhub.io/api/v1/stock/profile2?symbol=AAPL&token=${process.env.API_KEY}`)
+    .then(res => res.json())
+    .then((companyData) => {
+      const data = {
+        layout: 'layout.html',
+        title: 'Overview page',
+        companies: [{
+          exchange: companyData.exchange,
+          currency: companyData.currency,
+          name: companyData.name,
+          logo: companyData.logo,
+          symbol: companyData.ticker,
+          industry: companyData.finnhubIndustry,
+          country: companyData.country,
+          weburl: companyData.weburl
+        }]
+      }
+      console.log(data.companies);
+    });
   const userProfile = await userSettingsController.getUserProfile(
     req.session.userID,
   );
@@ -49,12 +44,12 @@ export async function overview(req, res) {
     ) {
       return company;
     }
-
     return false;
   });
-
   res.render('pages/overview.html', data);
-}
+};
+
+overview();
 
 export async function overviewPost(req, res) {
   if (req.body.like === 'false') {
@@ -76,7 +71,9 @@ export async function matchesOverview(req, res) {
 
   // TODO fetch company information and put info into data.matches
   const companies = profile.likedCompanies.map((company) => {
-    return { symbol: company };
+    return {
+      symbol: company
+    };
   });
 
   const data = {
