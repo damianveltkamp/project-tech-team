@@ -15,10 +15,10 @@ body {
 }
 
 .o-container {
-  width: 70vw;
-  margin: auto;
-  display: block;
-  position: relative;
+  max-width: 1220px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0 auto;
 }
 
 .hide {

@@ -8,6 +8,12 @@
   }
 }
 
+.footer__nav {
+  &:nth-of-type(2) {
+    text-align: right;
+  }
+}
+
 .footer__nav-list {
   margin: 0;
   padding: 0;
