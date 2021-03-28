@@ -8,8 +8,7 @@ export function home(req, res) {
   const data = {
     layout: 'layout.html',
     title: 'We are MA stock',
-    description:
-      'A young and very passionate agency specialized in the stock market. With us you will find the shares of companies that best suit your preferen- ces.',
+    description: 'A young and very passionate agency specialized in the stock market. With us you will find the shares of companies that best suit your preferen- ces.',
     verification: req.session.verification,
   };
 
@@ -17,7 +16,6 @@ export function home(req, res) {
 }
 
 export async function overview(req, res) {
-  // TODO dynamicaly fill companies array
   const symbols = [
     'AACG',
     'AACQ',
@@ -36,8 +34,8 @@ export async function overview(req, res) {
 
   const companyData = symbols.map((symbol) => {
     return fetch(
-      `${process.env.API_URL}/stock/profile2?symbol=${symbol}&token=${process.env.API_KEY}`,
-    )
+        `${process.env.API_URL}/stock/profile2?symbol=${symbol}&token=${process.env.API_KEY}`,
+      )
       .then((res) => res.json())
       .then((companyData) => {
         return {
@@ -96,9 +94,10 @@ export async function matchesOverview(req, res) {
     req.session.userID,
   );
 
-  // TODO fetch company information and put info into data.matches
   const companies = profile.likedCompanies.map((company) => {
-    return { symbol: company };
+    return {
+      symbol: company
+    };
   });
 
   const data = {
