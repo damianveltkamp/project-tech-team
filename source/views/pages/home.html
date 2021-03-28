@@ -2,16 +2,18 @@
 
 {% extends  layout %}
 {% block  content %}
-  <div class="o-container">
-    <h1>{{ title }}</h1>
-    <p>{{ description }}</p>
-  </div>
   {{ headerImage({
     image: {
       url: 'images/header-image.jpg',
       alt: 'Header image'
     }
   }) }}
+  <div class="o-container">
+    <section class="c-text">
+      <h1>{{ title }}</h1>
+      <p>{{ description }}</p>
+    </section>
+  </div>
   {% if verification %}
     <section class="c-popup" js-hook-module-popup>
       <h2>Check your mail</h2>
