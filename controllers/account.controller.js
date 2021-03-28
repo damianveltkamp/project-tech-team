@@ -4,6 +4,7 @@ import userSettingsController from '@controllers/database/users.settings.control
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
+import BadWordsFilter from 'bad-words';
 
 dotenv.config();
 
@@ -226,6 +227,30 @@ export async function onboardingFlow(req, res) {
 
 export async function postOnboardingFlow(req, res, next) {
   const loggedInUser = await userController.getUserByID(req.session.userID);
+
+  const btn = req.body.btnCheck;
+  btn.addEventListener('click', () => {
+    alert('Hello World!');
+  });
+  function test(){
+  const filter = new BadWordsFilter({ list: ['some', 'bad', 'word'] });
+  const txtInput = req.body.name;
+  const error = 0;
+  for (const i = 0; i < filter.length; i++) {
+    const val = filter[i];
+    if (txtInput.toLowerCase().indexOf(val.toString()) > -1) {
+      error += 1;
+    }
+  }
+  if (error > 0) {
+    console.log(filter.clean(txtInput));
+    alert('You have entered some restricted words.');
+  }
+  }
+  // De code op regel 251 tot 253 werken allemaal inividueel
+  // console.log(filter.clean(req.body.name));
+  // req.body.name = filter.clean(req.body.name);
+  // console.log(filter.clean("Don't be an ash0le"));
   userSettingsController.createNewUserProfile(loggedInUser._id, req.body);
   next();
 }

@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/damianveltkamp/node-boilerplate#readme",
   "dependencies": {
+    "anti-swear-words-packages-discord": "^1.1.43",
     "bad-words": "^3.0.4",
     "bcrypt": "^5.0.1",
     "compression": "^1.7.4",
