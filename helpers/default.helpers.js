@@ -58,8 +58,6 @@ export function unsetPopup(req, res) {
 
 export const rateLimit = (req, res, next) => {
   limiter.removeTokens(1, () => {
-    console.log(limiter.tokensThisInterval);
-    console.log(limiter.tokenBucket.bucketSize);
     if (limiter.tokensThisInterval >= limiter.tokenBucket.bucketSize) {
       req.errors = {};
       req.errors.limit =

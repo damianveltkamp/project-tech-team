@@ -203,11 +203,18 @@ export function logout(req, res) {
 export async function loginUser(req, res, next) {
   const user = await userController.getUser(req.body.email);
 
-  req.errors = await validateLoginForm(
-    user,
-    req.body,
-    req.connection.remoteAddress,
-  );
+  if (user) {
+    req.errors = await validateLoginForm(
+      user,
+      req.body,
+      req.connection.remoteAddress,
+    );
+  }
+
+  if (!user) {
+    req.errors = {};
+    req.errors.default = 'No user with this email';
+  }
 
   if (!Object.keys(req.errors).length) {
     req.session.userID = user._id;

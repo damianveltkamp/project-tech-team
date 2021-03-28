@@ -59,3 +59,8 @@ p.or {
   font-size: 1.2em;
   font-weight: 100;
 }
+
+.form__error {
+  display: block;
+  color: $color-error;
+}
