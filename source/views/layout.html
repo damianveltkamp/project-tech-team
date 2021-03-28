@@ -10,16 +10,19 @@
 
     <main>
       {{ userID }}
+      {{ role }}
       {% block content %}
       {% endblock %}
+      {% if (role != 'admin') %}
       <section class=".c-support">
         <button data-id="{{userID}}" js-hook-module-support>Support</button>
       </section>
-      <section class="c-support-chat" js-hook-support-chat>
+      {% endif %}   
+        <section class="c-support-chat" js-hook-support-chat>
         <div class="support-chat__window" js-hook-module-get-messages>
         </div>
         <form js-hook-module-chat-form>
-          <input name="roomID" type="hidden" value="" js-hook-roomid>
+          <input name="roomID" type="hidden" value="{{userID}}" js-hook-roomid>
           <input name="message" type="text" js-hook-chat-message>
           <button>Send</button>
         </form>
