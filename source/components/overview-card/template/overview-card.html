@@ -4,7 +4,7 @@
       <h2>{{ data.company.symbol }}</h2>
     {% endif %}
     {% if data.company.industry %}
-      <p>{{ data.company.industry }}</p>
+      <p class="overview-card__industry">{{ data.company.industry }}</p>
     {% endif %}
     <p class="overview-card__description">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dapibus mollis rutrum. Morbi ac mi non nibh vehicula sodales. Aenean diam urna, molestie id neque nec, mollis tincidunt ex. Proin eu cursus mauris. Curabitur porttitor feugiat nunc quis bibendum. Fusce maximus orci quis mauris ornare, at viverra urna hendrerit.
@@ -16,18 +16,18 @@
       </figcaption>
     </figure>
     <div class="c-overview-card__price">
-      <p>
+      <p class="overview-card__currency">
       {% if data.company.currency === 'USD' %}
         $
       {% endif %}
       {% if data.company.currency === 'CNY' %}
-        Â¥
+        ´
       {% endif %}
-      130.49
+      <span class="overview-card__price">130.49</span>
       </p>
     </div>
     {% if data.company.weburl %}
-      <h3>{{ data.company.weburl }}</h3>
+      <a class="companyWebURL" href="{{ data.company.weburl }}">{{ data.company.weburl }}</a>
     {% endif %}
     {% if data.likeing === false %}
       <form action="/matches-overview" method="post">
@@ -36,16 +36,18 @@
         <button>Remove match</button>
       </form>
     {% else %}
+    <div class="flexContainer">
       <form action="/overview" method="post" js-hook-matching-form>
         <input name="like" type="hidden" value="true">
         <input name="symbol" type="hidden" value="{{ data.company.symbol }}">
-        <button>Like</button>
+        <button class="dislike"></button>
       </form>
       <form action="/overview" method="post" js-hook-matching-form>
         <input name="like" type="hidden" value="false">
         <input name="symbol" type="hidden" value="{{ data.company.symbol }}">
-        <button>Dislike</button>
+        <button class="like"></button>
       </form>
+    </div>
     {% endif %}
   </div>
 {% endmacro %}
