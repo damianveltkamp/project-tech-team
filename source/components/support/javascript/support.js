@@ -1,5 +1,3 @@
-let socket = io();
-
 function createMesageElement(message, nodeClass) {
   const node = document.createElement('div');
   const textNode = document.createTextNode(message);
@@ -36,14 +34,18 @@ export function sendChatMessage() {
   chatForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const roomID = document.querySelector('[js-hook-roomid]').value;
-    const message = document.querySelector('[js-hook-chat-message]').value;
+    const date = new Date();
+    const timeString = `${date.getHours()}:${date.getMinutes()} `;
+
+    const message =
+      timeString + document.querySelector('[js-hook-chat-message]').value;
     const messageContainer = document.querySelector(
       '[js-hook-module-get-messages]',
     );
 
     socket.emit('message', { message, roomID });
     const messageElement = createMesageElement(message, 'sender');
-    messageContainer.insertBefore(messageElement, messageContainer.firstChild);
+    messageContainer.appendChild(messageElement, messageContainer.firstChild);
   });
 }
 
@@ -55,7 +57,6 @@ export function getChatMessages() {
     );
 
     const messageElement = createMesageElement(message, 'receiver');
-    messageContainer.insertBefore(messageElement, messageContainer.firstChild);
-    console.log(message);
+    messageContainer.appendChild(messageElement, messageContainer.firstChild);
   });
 }

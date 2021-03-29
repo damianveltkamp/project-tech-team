@@ -2,12 +2,14 @@
 
 {% extends  layout %}
 {% block  content %}
-  <h1>{{ title }}</h1>
+  <div class="o-container">
+    <h1>{{ title }}</h1>
 
-  {% for match in matches%}
-    {{ overviewCard({
+    {% for match in matches%}
+      {{ overviewCard({
       company: match,
       likeing: false
-    }) }}
-  {% endfor %}
+      }) }}
+    {% endfor %}
+  </div>
 {% endblock %}

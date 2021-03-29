@@ -1,10 +1,19 @@
 import express from 'express';
+import passport from 'passport';
 import * as base from '@controllers/default.controller';
 import * as account from '@controllers/account.controller';
 import * as admin from '@controllers/admin.controller';
-import * as chat from '@controllers/chat.controller';
-import { setCookie } from '@helpers/default.helpers';
+import { passportInit } from '@controllers/github.controller';
+import {
+  setCookie,
+  unsetPopup,
+  rateLimit,
+  registerRateLimit,
+} from '@helpers/default.helpers';
 import userController from '@controllers/database/users.controller';
+import userSettings from '@controllers/database/users.settings.controller';
+
+passportInit();
 
 const router = express.Router();
 
@@ -26,21 +35,26 @@ router.get('/matches-overview', base.matchesOverview);
 router.post('/matches-overview', base.matchesOverviewPost);
 router.get('/verify-account', account.verify);
 router.get('/register', account.register);
-router.post('/register', account.registerUser, (req, res) =>
-  Object.keys(req.errors).length && req.errors.constructor === Object
-    ? account.register(req, res)
-    : res.redirect('/'),
+router.post(
+  '/register',
+  registerRateLimit,
+  account.registerUser,
+  (req, res) => {
+    if (Object.keys(req.errors).length && req.errors.constructor === Object) {
+      account.register(req, res);
+    }
+
+    req.session.verification = true;
+    return res.redirect('/');
+  },
 );
 router.get('/login', account.login);
-router.post('/login', account.loginUser, async (req, res) => {
+router.post('/login', rateLimit, account.loginUser, async (req, res) => {
   if (Object.keys(req.errors).length && req.errors.constructor === Object) {
     return account.login(req, res);
   }
 
-  // Set user information in cookie
-  setCookie(req);
-  req.session.userID = req.loggedInUser;
-  const user = await userController.getUserByID(req.loggedInUser);
+  const user = await userController.getUserByID(req.session.userID);
 
   return user.hasSetupAccount === false
     ? res.redirect('/onboarding')
@@ -62,6 +76,7 @@ router.get('/user-settings', (req, res) => {
 router.post('/user-settings', account.updateUserSettings, account.userSettings);
 router.get('/admin', async (req, res) => {
   if (req.session.userID !== undefined) {
+    console.log(req.session.userID);
     const user = await userController.getUserByID(req.session.userID);
     return user.role === 'admin'
       ? admin.dashboard(req, res)
@@ -70,6 +85,23 @@ router.get('/admin', async (req, res) => {
 
   return res.redirect('/');
 });
+router.get('/auth/github', passport.authenticate('github'));
+router.get(
+  '/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  async (req, res) => {
+    req.session.userID = req.user.id;
+    req.session.githubUser = true;
+    const userProfile = await userSettings.getUserProfile(req.session.userID);
+
+    if (userProfile) {
+      return res.redirect('/overview');
+    }
+
+    return res.redirect('/onboarding');
+  },
+);
+router.post('/popup', unsetPopup);
 router.get('*', base.notFound);
 
 export default router;

@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/damianveltkamp/node-boilerplate#readme",
   "dependencies": {
+    "bad-words": "^3.0.4",
     "bcrypt": "^5.0.1",
     "compression": "^1.7.4",
     "connect-redis": "^5.1.0",
@@ -31,11 +32,15 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "limiter": "^1.1.5",
     "module-alias": "^2.2.2",
     "mongodb": "^3.6.4",
     "mongoose": "^5.11.15",
+    "node-fetch": "^2.6.1",
     "nodemailer": "^6.5.0",
     "nunjucks": "^3.2.3",
+    "passport": "^0.4.1",
+    "passport-github2": "^0.1.12",
     "redis": "^3.0.2",
     "socket.io": "^2.4.0"
   },

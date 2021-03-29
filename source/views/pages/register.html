@@ -22,8 +22,14 @@
       </label>
       <label class="form__label">
         <span class="form__label-value">
-          Password (No special characters, 8 characters minimum, atleast 1 digit and 1 uppercase letter)
+          Password
         </span>
+        <ul class="form__list">
+          <li class="form__list-element">No special characters</li>
+          <li class="form__list-element">8 Characters minimum</li>
+          <li class="form__list-element">Atleast 1 digit</li>
+          <li class="form__list-element">1 Uppercase letter</li>
+        </ul>
         {% if errors.repeatPassword %}
         <span class="form__error">
           {{ errors.repeatPassword }}

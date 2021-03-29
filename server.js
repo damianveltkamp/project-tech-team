@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 import connectRedis from 'connect-redis';
 import http from 'http';
 import socketIO from 'socket.io';
+import passport from 'passport';
 import router from './routes/index.routes';
 import * as defaultHelpers from './helpers/default.helpers';
 
@@ -26,9 +27,7 @@ const server = http.createServer(app);
 const io = new socketIO(server);
 
 io.on('connection', (socket) => {
-  console.log(`connected ${socket}`);
   socket.on('joinRoom', (roomID) => {
-    console.log(roomID);
     socket.join(`custom:${roomID}`);
   });
 
@@ -71,10 +70,12 @@ app
       store: new redisStore({ client: redisClient }),
     }),
   )
+  .use(passport.initialize())
   .use((req, res, next) => {
     defaultHelpers.setCookieExpire(req);
     if (req.session.userID) {
       nunjucksEnv.addGlobal('userID', req.session.userID);
+      nunjucksEnv.addGlobal('role', req.session.role);
       return next();
     }
 

@@ -19,7 +19,7 @@ async function verificationEmail(email, emailToken) {
     from: process.env.EMAIL,
     to: email,
     subject: 'Verify account',
-    html: `<a href="http://localhost:3001/verify-account?token=${emailToken}">Click this link to verify your email</a>`,
+    html: `<a href="${process.env.APP_URL}/verify-account?token=${emailToken}">Click this link to verify your email</a>`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {

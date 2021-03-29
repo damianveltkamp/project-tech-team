@@ -1,4 +1,69 @@
 @import '@sass/settings/all';
 @import '@sass/tools/all';
+@import '@sass/elements/all';
+@import '@components/button/stylesheet/components.button';
+@import '@components/menu/stylesheet/components.menu';
+@import '@components/header/stylesheet/components.header';
+@import '@components/footer/stylesheet/components.footer';
 @import '@components/overview/stylesheet/components.overview';
 @import '@components/overview-card/stylesheet/components.overview-card';
+@import '@components/header-image/stylesheet/components.header-image';
+@import '@components/form/stylesheet/components.form';
+
+.c-support-chat {
+  margin: 1em;
+  width: 40em;
+  background: rgb(235, 235, 235);
+  border-radius: 1em;
+  box-shadow: 0 0 5px 1px rgb(87, 87, 87);
+  font-size: 12px;
+  padding-top: 0.5em;
+  form {
+    padding: 0.5em;
+    background: rgb(212, 212, 212);
+    width: 100%;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    input {
+      width: 80%;
+      border-radius: 1em;
+      appearance: none;
+      border: none;
+      padding-left: 1em;
+      height: 2em;
+    }
+    button {
+      color: white;
+      background: #194260;
+      border: none;
+      width: 6em;
+      padding: 0.1em;
+      border-radius: 1em;
+      height: 2em;
+    }
+  }
+}
+
+.support-chat__window {
+  padding: 1em;
+  height: 20%;
+  position: static;
+  .sender {
+    color: white;
+    background: #194260;
+    min-width: 5em;
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 0.5em;
+    margin-left: 70%;
+  }
+  .receiver {
+    background: #929292;
+    color: white;
+    padding: 0.5em;
+    min-width: 5em;
+    margin: 0.5em;
+    border-radius: 0.5em;
+    margin-right: 70%;
+  }
+}

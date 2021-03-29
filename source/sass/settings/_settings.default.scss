@@ -24,3 +24,14 @@ body {
 .hide {
   display: none;
 }
+
+.page-container {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.c-text {
+  margin: 0 auto;
+  max-width: 750px;
+}

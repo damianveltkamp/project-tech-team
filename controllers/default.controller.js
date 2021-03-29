@@ -1,9 +1,16 @@
+import fetch from 'node-fetch';
+import dotenv from 'dotenv';
 import userSettingsController from './database/users.settings.controller';
+
+dotenv.config();
 
 export function home(req, res) {
   const data = {
     layout: 'layout.html',
-    title: 'Home page',
+    title: 'We are MA stock',
+    description:
+      'A young and very passionate agency specialized in the stock market. With us you will find the shares of companies that best suit your preferen- ces.',
+    verification: req.session.verification,
   };
 
   res.render('pages/home.html', data);
@@ -11,49 +18,64 @@ export function home(req, res) {
 
 export async function overview(req, res) {
   // TODO dynamicaly fill companies array
-  const data = {
-    layout: 'layout.html',
-    title: 'Overview page',
-    companies: [
-      {
-        symbol: 'GME',
-        industry: 'Games',
-      },
-      {
-        symbol: 'TSL',
-        industry: 'Technologie',
-      },
-      {
-        symbol: 'GME2',
-        industry: 'Games',
-      },
-      {
-        symbol: 'GME3',
-        industry: 'Games',
-      },
-      {
-        symbol: 'GME4',
-        industry: 'Games',
-      },
-    ],
-  };
+  const symbols = [
+    'AACG',
+    'AACQ',
+    'AAIC',
+    'AAL',
+    'AAMC',
+    'AAME',
+    'AAN',
+    'AAOI',
+    'AAON',
+    'AAP',
+    'AAPL',
+    'AAT',
+    'AAU',
+  ];
 
-  const userProfile = await userSettingsController.getUserProfile(
-    req.session.userID,
-  );
-
-  data.companies = data.companies.filter((company) => {
-    if (
-      userProfile.likedCompanies.includes(company.symbol) === false &&
-      userProfile.dislikedCompanies.includes(company.symbol) === false
-    ) {
-      return company;
-    }
-
-    return false;
+  const companyData = symbols.map((symbol) => {
+    return fetch(
+      `${process.env.API_URL}/stock/profile2?symbol=${symbol}&token=${process.env.API_KEY}`,
+    )
+      .then((res) => res.json())
+      .then((companyData) => {
+        return {
+          symbol,
+          exchange: companyData.exchange,
+          currency: companyData.currency,
+          name: companyData.name,
+          industry: companyData.finnhubIndustry,
+          country: companyData.country,
+          weburl: companyData.weburl,
+        };
+      });
   });
 
-  res.render('pages/overview.html', data);
+  Promise.all(companyData).then(async (companies) => {
+    const data = {
+      layout: 'layout.html',
+      title: 'Overview page',
+      companies,
+    };
+
+    const userProfile = await userSettingsController.getUserProfile(
+      req.session.userID,
+    );
+
+    data.companies = data.companies.filter((company) => {
+      if (
+        userProfile.likedCompanies.includes(company.symbol) === false &&
+        userProfile.dislikedCompanies.includes(company.symbol) === false
+      ) {
+        return company;
+      }
+
+      return false;
+    });
+
+    res.render('pages/overview.html', data);
+  });
 }
 
 export async function overviewPost(req, res) {

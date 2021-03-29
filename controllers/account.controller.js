@@ -4,6 +4,7 @@ import userSettingsController from '@controllers/database/users.settings.control
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
+import BadWordsFilter from 'bad-words';
 
 dotenv.config();
 
@@ -203,14 +204,22 @@ export function logout(req, res) {
 export async function loginUser(req, res, next) {
   const user = await userController.getUser(req.body.email);
 
-  req.errors = await validateLoginForm(
-    user,
-    req.body,
-    req.connection.remoteAddress,
-  );
+  if (user) {
+    req.errors = await validateLoginForm(
+      user,
+      req.body,
+      req.connection.remoteAddress,
+    );
+  }
+
+  if (!user) {
+    req.errors = {};
+    req.errors.default = 'No user with this email';
+  }
 
   if (!Object.keys(req.errors).length) {
-    req.loggedInUser = user._id;
+    req.session.userID = user._id;
+    req.session.role = user.role;
   }
 
   return next();
@@ -222,19 +231,27 @@ export async function onboardingFlow(req, res) {
     title: 'Onboarding page',
   };
 
-  if (req.session.userID) {
+  if (req.session.userID === undefined) {
+    return res.redirect('/login');
+  }
+
+  if (req.session.githubUser === undefined) {
     const loggedInUser = await userController.getUserByID(req.session.userID);
 
     return loggedInUser.hasSetupAccount === true
       ? res.redirect('/')
       : res.render('pages/onboarding.html', data);
   }
-  return res.redirect('/login');
+
+  if (req.session.githubUser === true) {
+    return res.render('pages/onboarding.html', data);
+  }
 }
 
 export async function postOnboardingFlow(req, res, next) {
-  const loggedInUser = await userController.getUserByID(req.session.userID);
-  userSettingsController.createNewUserProfile(loggedInUser._id, req.body);
+  const filter = new BadWordsFilter({ list: ['kut', 'tering'] });
+  req.body.name = filter.clean(req.body.name);
+  userSettingsController.createNewUserProfile(req.session.userID, req.body);
   next();
 }
 
