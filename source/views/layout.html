@@ -11,14 +11,17 @@
       <main>
         {% block content %}
         {% endblock %}
-        <section class=".c-support">
-          <button data-id="{{userID}}" js-hook-module-support>Support</button>
-        </section>
+
+        {% if (role != 'admin') %}
+          <section class=".c-support">
+            <button data-id="{{userID}}" js-hook-module-support>Support</button>
+          </section>
+        {% endif %}
         <section class="c-support-chat" js-hook-support-chat>
           <div class="support-chat__window" js-hook-module-get-messages>
           </div>
           <form js-hook-module-chat-form>
-            <input name="roomID" type="hidden" value="" js-hook-roomid>
+            <input name="roomID" type="hidden" value="{{userID}}" js-hook-roomid>
             <input name="message" type="text" js-hook-chat-message>
             <button>Send</button>
           </form>
@@ -26,6 +29,7 @@
       </main>
       {% include 'footer.html' %}
     </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
       let socket = io();

@@ -21,7 +21,6 @@ export function openChat() {
 
   [...openChatButton].forEach((node) => {
     node.addEventListener('click', () => {
-      // TODO fix hiding and showing of chat
       chatContainer.classList.remove('hide');
       const roomidContainer = chatContainer.querySelector('[type=hidden]');
       roomidContainer.value = node.dataset.id;
@@ -35,24 +34,29 @@ export function sendChatMessage() {
   chatForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const roomID = document.querySelector('[js-hook-roomid]').value;
-    const message = document.querySelector('[js-hook-chat-message]').value;
+    const date = new Date();
+    const timeString = `${date.getHours()}:${date.getMinutes()} `;
+
+    const message =
+      timeString + document.querySelector('[js-hook-chat-message]').value;
     const messageContainer = document.querySelector(
       '[js-hook-module-get-messages]',
     );
 
     socket.emit('message', { message, roomID });
     const messageElement = createMesageElement(message, 'sender');
-    messageContainer.insertBefore(messageElement, messageContainer.firstChild);
+    messageContainer.appendChild(messageElement, messageContainer.firstChild);
   });
 }
 
 export function getChatMessages() {
+  // TODO append html to ontvnager
   socket.on('send-message', (message) => {
     const messageContainer = document.querySelector(
       '[js-hook-module-get-messages]',
     );
 
     const messageElement = createMesageElement(message, 'receiver');
-    messageContainer.insertBefore(messageElement, messageContainer.firstChild);
+    messageContainer.appendChild(messageElement, messageContainer.firstChild);
   });
 }

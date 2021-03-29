@@ -71,11 +71,11 @@ app
     }),
   )
   .use(passport.initialize())
-  .use(passport.session())
   .use((req, res, next) => {
     defaultHelpers.setCookieExpire(req);
     if (req.session.userID) {
       nunjucksEnv.addGlobal('userID', req.session.userID);
+      nunjucksEnv.addGlobal('role', req.session.role);
       return next();
     }
 

@@ -219,6 +219,7 @@ export async function loginUser(req, res, next) {
 
   if (!Object.keys(req.errors).length) {
     req.session.userID = user._id;
+    req.session.role = user.role;
   }
 
   return next();

@@ -76,6 +76,7 @@ router.get('/user-settings', (req, res) => {
 router.post('/user-settings', account.updateUserSettings, account.userSettings);
 router.get('/admin', async (req, res) => {
   if (req.session.userID !== undefined) {
+    console.log(req.session.userID);
     const user = await userController.getUserByID(req.session.userID);
     return user.role === 'admin'
       ? admin.dashboard(req, res)
