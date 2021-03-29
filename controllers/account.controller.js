@@ -4,6 +4,7 @@ import userSettingsController from '@controllers/database/users.settings.control
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
+import BadWordsFilter from 'bad-words';
 
 dotenv.config();
 
@@ -247,6 +248,8 @@ export async function onboardingFlow(req, res) {
 }
 
 export async function postOnboardingFlow(req, res, next) {
+  const filter = new BadWordsFilter({ list: ['kut', 'tering'] });
+  req.body.name = filter.clean(req.body.name);
   userSettingsController.createNewUserProfile(req.session.userID, req.body);
   next();
 }
