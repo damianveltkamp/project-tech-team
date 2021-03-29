@@ -12,3 +12,9 @@
 .header__logo {
   margin: 0;
 }
+
+.header__logo {
+  img {
+    max-width: 50px;
+  }
+}
