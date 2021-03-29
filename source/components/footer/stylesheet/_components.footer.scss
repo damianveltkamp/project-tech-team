@@ -1,0 +1,34 @@
+.c-footer {
+  padding: 20px 0;
+  background: $dark-blue;
+
+  .o-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.footer__nav {
+  &:nth-of-type(2) {
+    text-align: right;
+  }
+}
+
+.footer__nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer__nav-list-item {
+  display: inline-flex;
+
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+}
+
+.footer__nav-list-anchor {
+  text-decoration: none;
+  color: $color-white;
+}

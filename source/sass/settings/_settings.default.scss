@@ -15,12 +15,23 @@ body {
 }
 
 .o-container {
-  width: 70vw;
-  margin: auto;
-  display: block;
-  position: relative;
+  max-width: 1220px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0 auto;
 }
 
 .hide {
   display: none;
+}
+
+.page-container {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.c-text {
+  margin: 0 auto;
+  max-width: 750px;
 }
